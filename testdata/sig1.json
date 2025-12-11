@@ -1,0 +1,43 @@
+{
+  "code": 200,
+  "msg": "successful",
+  "data": [
+    {
+      "sig_name": "RISC-V",
+      "maintainers": [
+        ""
+      ],
+      "committers": [
+        "",
+        ""
+      ],
+      "repositories": [
+        {
+          "committers": [
+            {
+              "gitee_id": "committer1",
+              "name": "user1",
+              "email": "56453@niconiconi.u"
+            },
+            {
+              "gitee_id": "committer2",
+              "name": "user2",
+              "email": "1234@iscas.ac.c"
+            }
+          ],
+          "repo": [
+            "opengaussmirror/openGauss-server",
+            "opengaussmirror/openGauss-third_party",
+            "opengaussmirror/riscv"
+          ]
+        }
+      ]
+    },
+    {
+      "committers": [
+        "committer1",
+        "committer2"
+      ]
+    }
+  ]
+}
