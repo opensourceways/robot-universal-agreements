@@ -64,14 +64,16 @@ func (bot *robot) GetLogger() *logrus.Entry {
 
 func (bot *robot) handleIssueEvent(evt *client.GenericEvent, repoCnfPtr any, logger *logrus.Entry) {
 	org, repo := utils.GetString(evt.Org), utils.GetString(evt.Repo)
-	commenter := utils.GetString(evt.IssueAuthor)
+	IssueAuthor := utils.GetString(evt.IssueAuthor)
+	Commenter := utils.GetString(evt.Commenter)
+	Author := utils.GetString(evt.Author)
 	action := utils.GetString(evt.Action)
 
-	logger.Info("org:", org, "repo:", repo)
+	logger.Info("org:", org, "repo:", repo, "IssueAuthor:", IssueAuthor, "Commenter:", Commenter, "Author:", Author, "Action:", action)
 	if org == "openeuler" && repo == "openEuler-agreements" && action == "open" {
-		fmt.Printf("add  ---- %s", commenter)
-		bot.cli.AddMemberships("openeuler", commenter, "customized", "a2f75336f8a0417dac1b786f509255bc")
-		bot.cli.AddMemberships("src-openeuler", commenter, "customized", "a2f75336f8a0417dac1b786f509255bc")
+		fmt.Printf("add  ---- %s", IssueAuthor)
+		bot.cli.AddMemberships("openeuler", IssueAuthor, "customized", "a2f75336f8a0417dac1b786f509255bc")
+		bot.cli.AddMemberships("src-openeuler", IssueAuthor, "customized", "a2f75336f8a0417dac1b786f509255bc")
 		return
 	}
 }
