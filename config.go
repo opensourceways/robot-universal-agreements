@@ -18,6 +18,7 @@ import (
 )
 
 type configuration struct {
+	ConfigItems []repoConfig `json:"config_items,omitempty"`
 	// Sig information url.
 	SigInfoURL string `json:"sig_info_url" required:"true"`
 	// Community name used as a request parameter to getRepoConfig sig information.
@@ -36,10 +37,4 @@ func (c *configuration) Validate() error {
 type repoConfig struct {
 	// Repos are either in the form of org/repos or just org.
 	Repos []string `json:"repos" required:"true"`
-	// ExcludedRepos are in the form of org/repo.
-	ExcludedRepos  []string `json:"excluded_repos,omitempty"`
-	CommunityName  string   `json:"community_name" required:"true"`
-	CommandLink    string   `json:"command_link" required:"true"`
-	SigInfoLink    string   `json:"sig_info_link" required:"true"`
-	WelcomeMessage []string `json:"welcome_message" required:"true"`
 }
