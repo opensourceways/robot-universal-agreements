@@ -62,7 +62,7 @@ func (bot *robot) GetLogger() *logrus.Entry {
 
 func (bot *robot) handleIssueEvent(evt *client.GenericEvent, repoCnfPtr any, logger *logrus.Entry) {
 	org, repo := utils.GetString(evt.Org), utils.GetString(evt.Repo)
-	commenter := utils.GetString(evt.Commenter)
+	commenter := utils.GetString(evt.IssueAuthor)
 
 	logger.Info("org:", org, "repo:", repo)
 	if org == "openeuler" && repo == "openEuler-agreements" {
