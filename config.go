@@ -18,22 +18,15 @@ import (
 )
 
 type configuration struct {
-	ConfigItems []repoConfig `json:"config_items,omitempty"`
 	// Sig information url.
 	SigInfoURL string `json:"sig_info_url" required:"true"`
 	// Community name used as a request parameter to getRepoConfig sig information.
-	CommunityName  string   `json:"community_name" required:"true"`
-	ExcludeUser    []string `json:"exclude_user,omitempty"`
-	UserMarkFormat string   `json:"user_mark_format" required:"true"`
+	CommunityName string `json:"community_name" required:"true"`
 }
 
 // Validate to check the configmap data's validation, returns an error if invalid
 func (c *configuration) Validate() error {
 	err := config.ValidateRequiredConfig(*c)
-	if err != nil {
-		return err
-	}
-	err = config.ValidateConfigItems(c.ConfigItems)
 	if err != nil {
 		return err
 	}
