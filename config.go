@@ -31,6 +31,10 @@ func (c *configuration) Validate() error {
 	if err != nil {
 		return err
 	}
+	err = config.ValidateConfigItems(c.ConfigItems)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
