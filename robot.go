@@ -14,6 +14,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/opensourceways/robot-framework-lib/client"
 	"github.com/opensourceways/robot-framework-lib/config"
 	"github.com/opensourceways/robot-framework-lib/framework"
@@ -67,7 +69,7 @@ func (bot *robot) handleIssueEvent(evt *client.GenericEvent, repoCnfPtr any, log
 
 	logger.Info("org:", org, "repo:", repo)
 	if org == "openeuler" && repo == "openEuler-agreements" && action == "open" {
-		logger.Infof("add %s ---->", commenter)
+		fmt.Printf("add  ---- %s", commenter)
 		bot.cli.AddMemberships("openeuler", commenter, "customized", "a2f75336f8a0417dac1b786f509255bc")
 		bot.cli.AddMemberships("src-openeuler", commenter, "customized", "a2f75336f8a0417dac1b786f509255bc")
 		return
