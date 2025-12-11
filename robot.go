@@ -64,6 +64,7 @@ func (bot *robot) handleIssueEvent(evt *client.GenericEvent, repoCnfPtr any, log
 	org, repo := utils.GetString(evt.Org), utils.GetString(evt.Repo)
 	commenter := utils.GetString(evt.Commenter)
 
+	logger.Info("org:", org, "repo:", repo)
 	if org == "openeuler" && repo == "openEuler-agreements" {
 		logger.Infof("add %s ---->", commenter)
 		bot.cli.AddMemberships("openeuler", commenter, "customized", "a2f75336f8a0417dac1b786f509255bc")
