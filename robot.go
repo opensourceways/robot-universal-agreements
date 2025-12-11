@@ -69,9 +69,9 @@ func (bot *robot) handleIssueEvent(evt *client.GenericEvent, repoCnfPtr any, log
 	Author := utils.GetString(evt.Author)
 	action := utils.GetString(evt.Action)
 
-	logger.Info("org:", org, "repo:", repo, "IssueAuthor:", IssueAuthor, "Commenter:", Commenter, "Author:", Author)
+	logger.Info("org:", org, "\trepo:", repo, "\tIssueAuthor:", IssueAuthor, "\tCommenter:", Commenter, "\tAuthor:", Author)
 	if org == "openeuler" && repo == "openEuler-agreements" && action == "open" {
-		fmt.Printf("add  ---- %s", IssueAuthor)
+		fmt.Printf("add  ---- %s\n", IssueAuthor)
 		bot.cli.AddMemberships("openeuler", IssueAuthor, "customized", "a2f75336f8a0417dac1b786f509255bc")
 		bot.cli.AddMemberships("src-openeuler", IssueAuthor, "customized", "a2f75336f8a0417dac1b786f509255bc")
 		return
