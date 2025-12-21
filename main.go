@@ -15,8 +15,9 @@ package main
 
 import (
 	"flag"
-	"github.com/opensourceways/robot-framework-lib/framework"
 	"os"
+
+	"github.com/opensourceways/robot-framework-lib/framework"
 )
 
 const component = "robot-universal-welcome"

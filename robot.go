@@ -14,8 +14,10 @@
 package main
 
 import (
+	"context"
 	"fmt"
 
+	"github.com/beego/beego/v2/task"
 	"github.com/opensourceways/robot-framework-lib/client"
 	"github.com/opensourceways/robot-framework-lib/config"
 	"github.com/opensourceways/robot-framework-lib/framework"
@@ -34,6 +36,7 @@ type iClient interface {
 	AddIssueLabels(org, repo, number string, labels []string) (success bool)
 	GetPullRequestChanges(org, repo, number string) (result []client.CommitFile, success bool)
 	AddMemberships(org, user, permission, roleId string) (success bool)
+	ListRepoAllIssue(org, repo string) (result []client.Issue, success bool)
 }
 
 type robot struct {
@@ -55,6 +58,10 @@ func (bot *robot) GetConfigmap() config.Configmap {
 }
 
 func (bot *robot) RegisterEventHandler(p framework.HandlerRegister) {
+	tk1 := task.NewTask("syncUser", "0 45 5 * * ?", func(ctx context.Context) error {
+		return bot.syncUser()
+	})
+	task.AddTask("syncUser", tk1)
 	p.RegisterIssueHandler(bot.handleIssueEvent)
 }
 
@@ -76,4 +83,13 @@ func (bot *robot) handleIssueEvent(evt *client.GenericEvent, repoCnfPtr any, log
 		bot.cli.AddMemberships("src-openeuler", IssueAuthor, "customized", "a2f75336f8a0417dac1b786f509255bc")
 		return
 	}
+}
+
+func (bot *robot) syncUser() error {
+	list, _ := bot.cli.ListRepoAllIssue("openeuler", "openEuler-agreements")
+	for _, issue := range list {
+		bot.cli.AddMemberships("openeuler", utils.GetString(issue.User), "customized", "a2f75336f8a0417dac1b786f509255bc")
+		bot.cli.AddMemberships("src-openeuler", utils.GetString(issue.User), "customized", "a2f75336f8a0417dac1b786f509255bc")
+	}
+	return nil
 }
